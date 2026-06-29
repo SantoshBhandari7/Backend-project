@@ -1,0 +1,24 @@
+{
+  //  Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+  
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "commonjs",
+    "target": "es2022",
+    "types": [],
+    // For nodejs:
+    // "types": ["node"],
+
+    // Recommended Options
+    "strict": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop":true
+  },
+  "include":["src"],
+  "exclude": ["node_modules"]
+
+}
