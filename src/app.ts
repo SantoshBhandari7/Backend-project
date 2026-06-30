@@ -1,8 +1,14 @@
 import express,{ NextFunction, Request , Response } from "express";
+import { errorHandler } from "./middlewares/errorhandler.middleware";
 
 
 //* app instance
 const app =express();
+
+
+
+//* using middleware 
+app.use(express.json());
 
 app.get("/",(req:Request, res:Response ,next:NextFunction)=>{
         res.status(200).json({
@@ -13,14 +19,19 @@ app.get("/",(req:Request, res:Response ,next:NextFunction)=>{
         })
 })
 
-//* using middleware 
-
 
 //*using routes
 
 
 //*  error routes
+app.use((req, res, next)=>{
+        const error:any = new Error(`Cannot get ${req.method} on ${req.path}`);
+        error. statusCode= 404;
+        error.status ="fails";
+        next(error);
+})
 
 //*error handler
+app.use(errorHandler);
 
 export default app;

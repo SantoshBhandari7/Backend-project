@@ -1,8 +1,11 @@
 import app from "./app"
+import { connectDb } from "./config/db.config";
 
 const port =8080;
 
-//*create database
+//*connect database
+const DB_URI="mongodb://localhost:27017/firstproject";
+connectDb(DB_URI);
 
 
 
