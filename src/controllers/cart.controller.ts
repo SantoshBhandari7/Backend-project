@@ -106,7 +106,8 @@ export const removeCart = catchAsync(
 
 
     await cart.save();
-
+    //send response
+    
     sendResponse(res, {
       message: "cart is deleted",
       data: cart,
