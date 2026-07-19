@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-
+import {Role} from "../@types/enum.types"
+import { imageSchema } from "./image.models";
 //using schema
 
 const userSchema= new mongoose.Schema({
@@ -20,14 +21,19 @@ const userSchema= new mongoose.Schema({
         },
         role:{
                 type:String,
-                enum:[ "USER", "ADMIN","SUPER_ADMIN"],
+                // enum:["ADMIN","USER","SUPER ADMIN"],
+                enum:Object.values(Role),
+
                 default:"USER",
         },
         profile_image:{
-                type:String,
+                type:imageSchema,
+                default:null,
+                
         },
         phone:{
                 type:String,
+                default:null,
         },
 },{
         timestamps:true,
