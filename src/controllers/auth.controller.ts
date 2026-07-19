@@ -171,6 +171,8 @@ export const getProfiles =catchAsync(async(req:Request, res:Response)=>{
   if(!user){
     throw new apiError("profile not found",404);
   }
+  // send response
+  
   sendResponse(res,{
     message:"profile fetched",
     data:user,
