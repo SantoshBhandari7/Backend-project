@@ -13,7 +13,7 @@ export const registerUserSchema = z.object({
       .max(100, "fullname must not exced 100 character"),
     password: z.string({
       error: (issue) =>
-        issue.input === null
+       issue.input === null
           ? "password is required "
           : "password must be string",
     }),

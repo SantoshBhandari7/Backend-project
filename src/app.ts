@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./middlewares/errorhandler.middleware";
 import authRoutes from "./routes/auth.routes";
@@ -11,6 +12,14 @@ import cartRoutes from "./routes/cart.routes";
 import wishlistRoutes from "./routes/wishlist.routes";
 //* app instanceqdc 
 const app = express();
+
+const allowedOrigins = process.env.ORIGINS?.split(',') ?? [];
+
+//* using middleware
+app.use(
+  cors({
+  origin: allowedOrigins,
+}))
 
 //* using middleware
 app.use(cookieParser());

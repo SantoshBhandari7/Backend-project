@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const errorhandler_middleware_1 = require("./middlewares/errorhandler.middleware");
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
@@ -15,6 +16,11 @@ const cart_routes_1 = __importDefault(require("./routes/cart.routes"));
 const wishlist_routes_1 = __importDefault(require("./routes/wishlist.routes"));
 //* app instanceqdc 
 const app = (0, express_1.default)();
+const allowedOrigins = process.env.ORIGINS?.split(',') ?? [];
+//* using middleware
+app.use((0, cors_1.default)({
+    origin: allowedOrigins,
+}));
 //* using middleware
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json({ limit: "10mb" }));
