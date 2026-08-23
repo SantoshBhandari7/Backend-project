@@ -129,7 +129,7 @@ export const login = catchAsync(
       full_name: user.full_name,
     });
 
-   
+
 
     sendMail({
       to: "santooshbhandari88gmail.com",
@@ -140,8 +140,8 @@ export const login = catchAsync(
         loginAt: new Date(Date.now()),
       }),
     });
-    
-     //*set cookie
+
+    //*set cookie
     res.cookie("access_token", access_token, {
       httpOnly: ENV_CONFIG.node_env === "development" ? false : true,
       maxAge: Number(ENV_CONFIG.cookie_expiry ?? "7") * 24 * 60 * 60 * 1000,
@@ -162,24 +162,30 @@ export const login = catchAsync(
 
 //*get profile
 
-export const getProfiles =catchAsync(async(req:Request, res:Response)=>{
+export const getProfile = catchAsync(async (req: Request, res: Response) => {
 
-  const {id} = req.params;
+  const { id } = req.params;
 
-  const user = await User.findOne({_id:id});
+  const user = await User.findOne({ _id: id });
 
-  if(!user){
-    throw new apiError("profile not found",404);
+  if (!user) {
+    throw new apiError("profile not found", 404);
   }
   // send response
-  
-  sendResponse(res,{
-    message:"profile fetched",
-    data:user,
-    statusCode:200,
+
+  sendResponse(res, {
+    message: "profile fetched",
+    data: user,
+    statusCode: 200,
   })
 })
 //  console.log("JWT Secret:", ENV_CONFIG.jwt_secrete);
+
+//* logout
+
+// export const logout = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+//   res.clearCookies("access token")
+// })
 
 //*change password
 

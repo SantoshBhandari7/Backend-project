@@ -5,8 +5,8 @@ import { apiError } from "../utils/apiError.utils";
 import { sendResponse } from "../utils/sendResponse.utils";
 import Product from "../models/product.model";
 
-export const getWishList = catchAsync(async (req: Request, res: Response,next:NextFunction) => {
-  const { userId } = req.params;
+export const getWishList = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const userId = req.user._id;
 
   const wishList = await WishList.findOne({ user: userId });
 
@@ -21,16 +21,17 @@ export const getWishList = catchAsync(async (req: Request, res: Response,next:Ne
   });
 });
 
-export const createWish = catchAsync(async (req: Request, res: Response,next:NextFunction) => {
-  const { userId, productId } = req.body;
+export const createWish = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const { productId } = req.body;
+  const userId = req.user._id;
 
-  const product = await Product.findById(productId);
+  const product = await Product.findById(productId).populate("product");
 
   if (!product) {
     throw new apiError("Prodcut is not found", 404);
   }
 
-  let wishlist =  await WishList.findOne({ user: userId });
+  let wishlist = await WishList.findOne({ user: userId });
   if (!wishlist) {
     wishlist = new WishList({
       user: userId,
@@ -38,37 +39,37 @@ export const createWish = catchAsync(async (req: Request, res: Response,next:Nex
     });
   }
 
-  const exist = wishlist.products.find((item)=>item.toString() === productId);
+  const exist = wishlist.products.find((item) => item.toString() === productId);
 
-  if(exist){
-        throw new apiError("product already exists in wishlist",400);
+  if (exist) {
+    throw new apiError("product already exists in wishlist", 400);
   }
   wishlist.products.push(product._id);
 
   await wishlist.save();
 
-  sendResponse(res,{
-        message:"product added to wishlist",
-        data:wishlist,
-        statusCode:201,
+  sendResponse(res, {
+    message: "product added to wishlist",
+    data: wishlist,
+    statusCode: 201,
   })
 });
 
-export const removeWish =  catchAsync(async(req:Request, res:Response,next:NextFunction)=>{
-        const {userId}= req.params;
+export const removeWish = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const userId = req.user._id;
 
-        const wishlist = await WishList.findOne({user:userId});
+  const wishlist = await WishList.findOne({ user: userId });
 
-        if(!wishlist){
-                throw new apiError("wishlist not found", 404);
-        }
-        wishlist.products=[];
+  if (!wishlist) {
+    throw new apiError("wishlist not found", 404);
+  }
+  wishlist.products = [];
 
-        await wishlist.save();
+  await wishlist.save();
 
-        sendResponse(res,{
-                message:"Wishlist deleted successfully",
-                data:wishlist,
-                statusCode:200,
-        })
+  sendResponse(res, {
+    message: "Wishlist deleted successfully",
+    data: wishlist,
+    statusCode: 200,
+  })
 })

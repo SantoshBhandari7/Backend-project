@@ -37,7 +37,7 @@ export const authenticate = (roles?: Role[]) => {
         _id: decoded_data._id,
         email: decoded_data.email,
         full_name: decoded_data.full_name,
-        role: decoded_data.role,
+        role:decoded_data.role,
       };
 
       next();

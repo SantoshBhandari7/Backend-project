@@ -27,7 +27,7 @@ router.get("/:id", validate(getproductByIdSchema), getbyId);
 
 router.post(
   "/",
-  authenticate([Role.ADMIN, Role.SUPER_ADMIN]),
+
   upload.fields([
     { name: "cover_image", maxCount: 1 },
     {
@@ -38,6 +38,10 @@ router.post(
   validate(createProductSchema),
   create,
 );
+//   authenticate([Role.ADMIN, Role.SUPER_ADMIN]),
+
+
+
 router.put(
   "/:id",
   authenticate([Role.ADMIN, Role.SUPER_ADMIN]),
@@ -55,6 +59,6 @@ router.put(
   update,
 );
 
-router.delete("/:id",authenticate([Role.ADMIN, Role.SUPER_ADMIN]), validate(deleteproductSchema), remove);
+router.delete("/:id", authenticate([Role.ADMIN, Role.SUPER_ADMIN]), validate(deleteproductSchema), remove);
 
 export default router;

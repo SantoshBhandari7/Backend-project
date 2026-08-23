@@ -80,6 +80,7 @@ export const getById = catchAsync(async (req: Request, res: Response,next:NextFu
 
 //* create
 export const create = catchAsync(async (req: Request, res: Response, next:NextFunction) => {
+    console.log("🔥 CREATE CATEGORY CONTROLLER REACHED");
   const { name, description } = req.body;
   const file = req.file;
   if (!name) throw new apiError("name is required", 400);

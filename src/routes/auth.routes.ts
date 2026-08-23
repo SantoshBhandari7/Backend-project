@@ -1,5 +1,5 @@
 import express from "express";
-import { getProfiles, login, register } from "../controllers/auth.controller";
+import { getProfile, login, register } from "../controllers/auth.controller";
 import multer from "multer";
 import { uploader } from "../middlewares/multer.middleware";
 import { validate } from "../middlewares/validator.middleware";
@@ -8,7 +8,7 @@ import { authenticate } from "../middlewares/auth.middleware";
 
 const router = express.Router();
 
-const upload =uploader();
+const upload = uploader();
 
 //* register
 router.post("/register", upload.single("profile_image"), validate(registerUserSchema), register);
@@ -17,5 +17,5 @@ router.post("/register", upload.single("profile_image"), validate(registerUserSc
 router.post("/login", validate(loginSchema), login);
 
 //*get profile
-router.get("/me",authenticate(), getProfiles);
+router.get("/me", authenticate(), getProfile);
 export default router;

@@ -23,19 +23,21 @@ router.get("/:id", getById);
 
 //* create
 router.post(
-  "/",
+  "/", authenticate([Role.ADMIN, Role.SUPER_ADMIN]), validate(createCategorySchema),
   upload.single("image"),
-  authenticate([Role.ADMIN, Role.SUPER_ADMIN]), validate(createCategorySchema),
   create,
 );
+//  
 
 //* update
 router.put(
   "/:id",
-  upload.single("image"),
   authenticate([Role.ADMIN, Role.SUPER_ADMIN]),
+  upload.single("image"),
+
   update,
 );
+//  
 
 //* delete
 router.delete("/:id", authenticate([Role.ADMIN, Role.SUPER_ADMIN]), remove);

@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import { apiError } from "../utils/apiError.utils";
 import { Request } from "express";
+import { error } from "console";
 export const uploader = () => {
   const folder = "uploads/";
 
@@ -27,8 +28,8 @@ export const uploader = () => {
     file: Express.Multer.File,
     cb: FileFilterCallback,
   ) => {
-    const allowed_extention = [".png", ".jpeg", ".jpg", ".svg", ".webp"];
-    const mime_types = ["image/jpg", "image/jpeg", "image/svg+xml"];
+    const allowed_extention = [".png", "peng", ".jpeg", ".jpg", ".svg", ".webp"];
+    const mime_types = ["image/png", "image/peng", "image/jpg", "image/jpeg", "image/svg+xml", "image/webp"];
 
     const file_ext = path.extname(file.originalname);
     console.log(file);
@@ -39,6 +40,7 @@ export const uploader = () => {
     ) {
       console.log(file);
       cb(
+
         new apiError(
           `Invalid file format.only ${allowed_extention.join(",").replaceAll(".", "")}files are accepted.`,
           422,

@@ -19,7 +19,7 @@ import { Role } from "../@types/enum.types";
 import { uploader } from "../middlewares/multer.middleware";
 
 const router = express.Router();
-const upload =uploader();
+const upload = uploader();
 
 router.get("/", validate(brandQuerySchema), getall);
 
@@ -27,13 +27,15 @@ router.get("/:id", validate(getBrandByIdSchema), getbyId);
 
 router.post(
   "/",
-  authenticate([Role.ADMIN, Role.SUPER_ADMIN]),upload.single("logo"),
+  authenticate([Role.ADMIN, Role.SUPER_ADMIN]),
+  upload.single("logo"),
   validate(createBrandSchema),
   create,
 );
 
-router.put("/:id", authenticate([Role.ADMIN, Role.SUPER_ADMIN]),upload.single("logo") ,validate(updateBrandSchema), update);
 
-router.delete("/:id",authenticate([Role.ADMIN, Role.SUPER_ADMIN]), validate(deleteBrandSchema), remove);
+router.put("/:id", authenticate([Role.ADMIN, Role.SUPER_ADMIN]), upload.single("logo"), validate(updateBrandSchema), update);
+
+router.delete("/:id", authenticate([Role.ADMIN, Role.SUPER_ADMIN]), validate(deleteBrandSchema), remove);
 
 export default router;

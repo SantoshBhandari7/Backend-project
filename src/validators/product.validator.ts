@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { number, z } from "zod";
+import { z } from "zod";
 
 export const createProductSchema = z.object({
   body: z.object({

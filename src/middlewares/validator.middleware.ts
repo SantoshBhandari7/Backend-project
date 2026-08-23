@@ -27,7 +27,7 @@ export const validate = (schema: z.ZodObject) => {
 
     req.body = result.data.body;
     req.params = result.data.params as Record<string, any>;
-    Object.assign(req.query, result);
+    Object.assign(req.query, result.data.query);
 
     next();
   };
