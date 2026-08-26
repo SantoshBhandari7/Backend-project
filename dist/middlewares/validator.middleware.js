@@ -26,7 +26,7 @@ const validate = (schema) => {
         //* if validation success
         req.body = result.data.body;
         req.params = result.data.params;
-        Object.assign(req.query, result);
+        Object.assign(req.query, result.data.query);
         next();
     };
 };

@@ -67,6 +67,7 @@ exports.getById = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
 });
 //* create
 exports.create = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
+    console.log("🔥 CREATE CATEGORY CONTROLLER REACHED");
     const { name, description } = req.body;
     const file = req.file;
     if (!name)

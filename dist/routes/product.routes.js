@@ -12,15 +12,16 @@ const auth_middleware_1 = require("../middlewares/auth.middleware");
 const enum_types_1 = require("../@types/enum.types");
 const upload = (0, multer_middleware_1.uploader)();
 const router = express_1.default.Router();
-router.get("get", product_controller_1.getall);
+router.get("/", product_controller_1.getall);
 router.get("/:id", (0, validator_middleware_1.validate)(product_validator_1.getproductByIdSchema), product_controller_1.getbyId);
-router.post("/", (0, auth_middleware_1.authenticate)([enum_types_1.Role.ADMIN, enum_types_1.Role.SUPER_ADMIN]), upload.fields([
+router.post("/", upload.fields([
     { name: "cover_image", maxCount: 1 },
     {
         name: "images",
         maxCount: 5,
     },
 ]), (0, validator_middleware_1.validate)(product_validator_1.createProductSchema), product_controller_1.create);
+//   authenticate([Role.ADMIN, Role.SUPER_ADMIN]),
 router.put("/:id", (0, auth_middleware_1.authenticate)([enum_types_1.Role.ADMIN, enum_types_1.Role.SUPER_ADMIN]), upload.fields([
     {
         name: "cover_image",

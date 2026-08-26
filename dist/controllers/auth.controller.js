@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProfiles = exports.login = exports.register = void 0;
+exports.logout = exports.getProfile = exports.login = exports.register = void 0;
 const user_models_1 = __importDefault(require("../models/user.models"));
 const bycript_utils_1 = require("../utils/bycript.utils");
 const apiError_utils_1 = require("../utils/apiError.utils");
@@ -141,7 +141,7 @@ exports.login = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     });
 });
 //*get profile
-exports.getProfiles = (0, catchAsync_utils_1.catchAsync)(async (req, res) => {
+exports.getProfile = (0, catchAsync_utils_1.catchAsync)(async (req, res) => {
     const { id } = req.params;
     const user = await user_models_1.default.findOne({ _id: id });
     if (!user) {
@@ -155,6 +155,20 @@ exports.getProfiles = (0, catchAsync_utils_1.catchAsync)(async (req, res) => {
     });
 });
 //  console.log("JWT Secret:", ENV_CONFIG.jwt_secrete);
+//* logout
+exports.logout = (0, catchAsync_utils_1.catchAsync)(async (req, res) => {
+    res.clearCookie("access_token", {
+        httpOnly: env_config_1.default.node_env === "development" ? false : true,
+        maxAge: Date.now(),
+        sameSite: env_config_1.default.node_env === "development" ? "lax" : "none",
+        secure: env_config_1.default.node_env === "development" ? false : true,
+    });
+    (0, sendResponse_utils_1.sendResponse)(res, {
+        message: "logout successfull",
+        data: null,
+        statusCode: 200,
+    });
+});
 //*change password
 //*change email
 //* forgot password

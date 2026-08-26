@@ -20,6 +20,7 @@ const allowedOrigins = process.env.ORIGINS?.split(',') ?? [];
 //* using middleware
 app.use((0, cors_1.default)({
     origin: allowedOrigins,
+    credentials: true
 }));
 //* using middleware
 app.use((0, cookie_parser_1.default)());

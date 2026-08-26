@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, response, Response } from "express";
 import User from "../models/user.models";
 import { compare, hash } from "../utils/bycript.utils";
 import { apiError } from "../utils/apiError.utils";
@@ -183,9 +183,20 @@ export const getProfile = catchAsync(async (req: Request, res: Response) => {
 
 //* logout
 
-// export const logout = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-//   res.clearCookies("access token")
-// })
+export const logout = catchAsync(async (req, res) => {
+  res.clearCookie("access_token", {
+    httpOnly: ENV_CONFIG.node_env === "development" ? false : true,
+    maxAge: Date.now(),
+    sameSite: ENV_CONFIG.node_env === "development" ? "lax" : "none",
+    secure: ENV_CONFIG.node_env === "development" ? false : true,
+  })
+  sendResponse(res, {
+    message: "logout successfull",
+    data: null,
+    statusCode: 200,
+  })
+
+})
 
 //*change password
 

@@ -22,7 +22,7 @@ const upload = uploader();
 
 const router = express.Router();
 
-router.get("get", getall);
+router.get("/", getall);
 router.get("/:id", validate(getproductByIdSchema), getbyId);
 
 router.post(

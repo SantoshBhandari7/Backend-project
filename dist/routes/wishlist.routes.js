@@ -5,8 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const wishlist_controller_1 = require("../controllers/wishlist.controller");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
+const enum_types_1 = require("../@types/enum.types");
 const router = express_1.default.Router();
-router.get("/get", wishlist_controller_1.getWishList);
-router.post("/", wishlist_controller_1.createWish);
-router.delete("/:id", wishlist_controller_1.removeWish);
+router.get("/", (0, auth_middleware_1.authenticate)([enum_types_1.Role.USER]), wishlist_controller_1.getWishList);
+router.post("/", (0, auth_middleware_1.authenticate)([enum_types_1.Role.USER]), wishlist_controller_1.createWish);
+router.delete("/:id", (0, auth_middleware_1.authenticate)([enum_types_1.Role.USER]), wishlist_controller_1.removeWish);
 exports.default = router;

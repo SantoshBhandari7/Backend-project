@@ -24,8 +24,8 @@ const uploader = () => {
         },
     });
     const fileFilter = (req, file, cb) => {
-        const allowed_extention = [".png", ".jpeg", ".jpg", ".svg", ".webp"];
-        const mime_types = ["image/jpg", "image/jpeg", "image/svg+xml"];
+        const allowed_extention = [".png", "peng", ".jpeg", ".jpg", ".svg", ".webp"];
+        const mime_types = ["image/png", "image/peng", "image/jpg", "image/jpeg", "image/svg+xml", "image/webp"];
         const file_ext = path_1.default.extname(file.originalname);
         console.log(file);
         if (!mime_types.includes(file.mimetype) ||

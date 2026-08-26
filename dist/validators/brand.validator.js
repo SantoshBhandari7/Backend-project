@@ -8,7 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const zod_1 = require("zod");
 exports.createBrandSchema = zod_1.z.object({
     body: zod_1.z.object({
-        full_name: zod_1.z
+        name: zod_1.z
             .string({
             error: (issue) => issue.input === null ? "name is reuired" : "name must be string",
         })
@@ -20,7 +20,7 @@ exports.createBrandSchema = zod_1.z.object({
             .string({
             error: "description must be string",
         })
-            .min(25, "description must be 25 characters along")
+            .min(10, "description must be 25 characters along")
             .max(500, "description must not exceed 500 characters")
             .optional(),
     }),

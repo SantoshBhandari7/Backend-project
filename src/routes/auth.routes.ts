@@ -1,5 +1,5 @@
 import express from "express";
-import { getProfile, login, register } from "../controllers/auth.controller";
+import { getProfile, login, logout, register } from "../controllers/auth.controller";
 import multer from "multer";
 import { uploader } from "../middlewares/multer.middleware";
 import { validate } from "../middlewares/validator.middleware";
@@ -17,5 +17,10 @@ router.post("/register", upload.single("profile_image"), validate(registerUserSc
 router.post("/login", validate(loginSchema), login);
 
 //*get profile
-router.get("/me", authenticate(), getProfile);
+router.get("/getProfiles", authenticate(), getProfile);
+
+
+//* logout
+router.post("/logout", authenticate(), logout);
+
 export default router;

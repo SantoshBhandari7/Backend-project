@@ -1,13 +1,15 @@
 
 import express from "express";
 import { createWish, getWishList, removeWish } from "../controllers/wishlist.controller";
+import { authenticate } from "../middlewares/auth.middleware";
+import { Role } from "../@types/enum.types";
 
 const router = express.Router();
 
-router.get("/get",getWishList);
+router.get("/", authenticate([Role.USER]), getWishList);
 
-router.post("/",createWish);
+router.post("/", authenticate([Role.USER]), createWish);
 
-router.delete("/:id",removeWish);
+router.delete("/:id", authenticate([Role.USER]), removeWish);
 
 export default router;

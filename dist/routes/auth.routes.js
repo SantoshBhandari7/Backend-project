@@ -16,5 +16,7 @@ router.post("/register", upload.single("profile_image"), (0, validator_middlewar
 //*login
 router.post("/login", (0, validator_middleware_1.validate)(auth_validator_1.loginSchema), auth_controller_1.login);
 //*get profile
-router.get("/me", (0, auth_middleware_1.authenticate)(), auth_controller_1.getProfiles);
+router.get("/getProfiles", (0, auth_middleware_1.authenticate)(), auth_controller_1.getProfile);
+//* logout
+router.post("/logout", (0, auth_middleware_1.authenticate)(), auth_controller_1.logout);
 exports.default = router;
