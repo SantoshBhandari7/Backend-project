@@ -132,7 +132,7 @@ export const login = catchAsync(
 
 
     sendMail({
-      to: "santooshbhandari88gmail.com",
+      to: user.email,
       subject: "login successfully ",
       html: LoginDetectedEmailHtml({
         full_name: user.full_name,
@@ -164,7 +164,7 @@ export const login = catchAsync(
 
 export const getProfile = catchAsync(async (req: Request, res: Response) => {
 
-  const { id } = req.params;
+  const id = req.user._id;
 
   const user = await User.findOne({ _id: id });
 

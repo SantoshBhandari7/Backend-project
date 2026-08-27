@@ -116,7 +116,7 @@ exports.login = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
         full_name: user.full_name,
     });
     (0, sendEmailService_utils_1.sendMail)({
-        to: "santooshbhandari88gmail.com",
+        to: user.email,
         subject: "login successfully ",
         html: (0, emailTemplate_utils_1.LoginDetectedEmailHtml)({
             full_name: user.full_name,
@@ -142,7 +142,7 @@ exports.login = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
 });
 //*get profile
 exports.getProfile = (0, catchAsync_utils_1.catchAsync)(async (req, res) => {
-    const { id } = req.params;
+    const id = req.user._id;
     const user = await user_models_1.default.findOne({ _id: id });
     if (!user) {
         throw new apiError_utils_1.apiError("profile not found", 404);

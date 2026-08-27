@@ -17,7 +17,7 @@ router.post("/register", upload.single("profile_image"), validate(registerUserSc
 router.post("/login", validate(loginSchema), login);
 
 //*get profile
-router.get("/getProfiles", authenticate(), getProfile);
+router.get("/getProfile", authenticate(), getProfile);
 
 
 //* logout
