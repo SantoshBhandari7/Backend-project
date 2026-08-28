@@ -8,7 +8,7 @@ import Product from "../models/product.model";
 export const getWishList = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.user._id;
 
-  const wishList = await WishList.findOne({ user: userId });
+  const wishList = await WishList.findOne({ user: userId }).populate("products");
 
   if (!wishList) {
     throw new apiError("WishList is not found", 404);
@@ -25,10 +25,10 @@ export const createWish = catchAsync(async (req: Request, res: Response, next: N
   const { productId } = req.body;
   const userId = req.user._id;
 
-  const product = await Product.findById(productId).populate("product");
+  const product = await Product.findById(productId);
 
   if (!product) {
-    throw new apiError("Prodcut is not found", 404);
+    throw new apiError("Product is not found", 404);
   }
 
   let wishlist = await WishList.findOne({ user: userId });

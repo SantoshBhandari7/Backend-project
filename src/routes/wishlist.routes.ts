@@ -10,6 +10,6 @@ router.get("/", authenticate([Role.USER]), getWishList);
 
 router.post("/", authenticate([Role.USER]), createWish);
 
-router.delete("/:id", authenticate([Role.USER]), removeWish);
+router.delete("/:productId", authenticate([Role.USER]), removeWish);
 
 export default router;

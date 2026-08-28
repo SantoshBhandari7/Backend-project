@@ -11,7 +11,7 @@ const sendResponse_utils_1 = require("../utils/sendResponse.utils");
 const product_model_1 = __importDefault(require("../models/product.model"));
 exports.getWishList = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     const userId = req.user._id;
-    const wishList = await wishlist_model_1.default.findOne({ user: userId });
+    const wishList = await wishlist_model_1.default.findOne({ user: userId }).populate("products");
     if (!wishList) {
         throw new apiError_utils_1.apiError("WishList is not found", 404);
     }
@@ -24,9 +24,9 @@ exports.getWishList = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) 
 exports.createWish = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     const { productId } = req.body;
     const userId = req.user._id;
-    const product = await product_model_1.default.findById(productId).populate("product");
+    const product = await product_model_1.default.findById(productId);
     if (!product) {
-        throw new apiError_utils_1.apiError("Prodcut is not found", 404);
+        throw new apiError_utils_1.apiError("Product is not found", 404);
     }
     let wishlist = await wishlist_model_1.default.findOne({ user: userId });
     if (!wishlist) {

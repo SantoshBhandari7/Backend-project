@@ -10,5 +10,5 @@ const enum_types_1 = require("../@types/enum.types");
 const router = express_1.default.Router();
 router.get("/", (0, auth_middleware_1.authenticate)([enum_types_1.Role.USER]), wishlist_controller_1.getWishList);
 router.post("/", (0, auth_middleware_1.authenticate)([enum_types_1.Role.USER]), wishlist_controller_1.createWish);
-router.delete("/:id", (0, auth_middleware_1.authenticate)([enum_types_1.Role.USER]), wishlist_controller_1.removeWish);
+router.delete("/:productId", (0, auth_middleware_1.authenticate)([enum_types_1.Role.USER]), wishlist_controller_1.removeWish);
 exports.default = router;
