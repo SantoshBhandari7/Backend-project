@@ -7,9 +7,9 @@ import Product from "../models/product.model";
 
 export const getById = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { userId } = req.params;
+    const userId = req.user._id;
 
-    const carts = await Cart.findOne({ user: userId });
+    const carts = await Cart.findOne({ user: userId }).populate('product');
     if (!carts) {
       throw new apiError("cart not found", 404);
     }
@@ -24,7 +24,8 @@ export const getById = catchAsync(
 
 export const createCart = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { userId, productId, quantity } = req.body;
+    const { productId, quantity } = req.body;
+    const userId = req.user._id;
 
     const product = await Product.findById(productId);
     if (!product) {
@@ -63,7 +64,8 @@ export const createCart = catchAsync(
 
 export const updateCart = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { userId, quantity, productId } = req.body;
+    const { quantity, productId } = req.body;
+    const userId = req.user._id;
 
     const cart = await Cart.findOne({ user: userId });
 
@@ -107,7 +109,7 @@ export const removeCart = catchAsync(
 
     await cart.save();
     //send response
-    
+
     sendResponse(res, {
       message: "cart is deleted",
       data: cart,

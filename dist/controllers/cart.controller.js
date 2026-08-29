@@ -10,8 +10,8 @@ const apiError_utils_1 = require("../utils/apiError.utils");
 const sendResponse_utils_1 = require("../utils/sendResponse.utils");
 const product_model_1 = __importDefault(require("../models/product.model"));
 exports.getById = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
-    const { userId } = req.params;
-    const carts = await cart_model_1.default.findOne({ user: userId });
+    const userId = req.user._id;
+    const carts = await cart_model_1.default.findOne({ user: userId }).populate('product');
     if (!carts) {
         throw new apiError_utils_1.apiError("cart not found", 404);
     }
@@ -22,7 +22,8 @@ exports.getById = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     });
 });
 exports.createCart = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
-    const { userId, productId, quantity } = req.body;
+    const { productId, quantity } = req.body;
+    const userId = req.user._id;
     const product = await product_model_1.default.findById(productId);
     if (!product) {
         throw new apiError_utils_1.apiError("product is bot found", 404);
@@ -50,7 +51,8 @@ exports.createCart = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) =
     });
 });
 exports.updateCart = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
-    const { userId, quantity, productId } = req.body;
+    const { quantity, productId } = req.body;
+    const userId = req.user._id;
     const cart = await cart_model_1.default.findOne({ user: userId });
     if (!cart) {
         throw new apiError_utils_1.apiError("Cart is not found", 404);

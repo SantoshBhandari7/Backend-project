@@ -4,12 +4,12 @@ import { createCart, getById, removeCart, updateCart } from "../controllers/cart
 
 const router = exprss.Router();
 
-router.get("getall", getById);
+router.get("/", getById);
 
 router.post("/", createCart);
 
-router.put("/:id",updateCart);
+router.put("/:productId", updateCart);
 
-router.delete("/:id", removeCart);
+router.delete("/:productId", removeCart);
 
 export default router;
