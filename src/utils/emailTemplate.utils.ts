@@ -1,11 +1,11 @@
 //* Send Account Created Email
 
 export const AccountCreatedEmailHtml = (user: {
-  full_name: string;
-  email: string;
-  createdAt: any;
+    full_name: string;
+    email: string;
+    createdAt: any;
 }) => {
-return`
+    return `
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,15 +80,15 @@ style="background:#ffffff;border-radius:10px;overflow:hidden;">
                     <td style="padding:12px;border:1px solid #ddd;">
                         ${new Date(user.createdAt).getFullYear()}
                         ${new Date(user.createdAt).toLocaleString("en-US", {
-                          month: "long",
-                        })}
+        month: "long",
+    })}
                         ${new Date(user.createdAt).getDate()}
                         |
                         ${new Date(user.createdAt).toLocaleTimeString("en-US", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: true,
-                        })}
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+    })}
                     </td>
                 </tr>
 
@@ -152,11 +152,11 @@ style="background:#ffffff;border-radius:10px;overflow:hidden;">
 //* Login Detected Email
 
 export const LoginDetectedEmailHtml = (user: {
-  full_name: string;
-  email: string;
-  loginAt:NativeDate;
+    full_name: string;
+    email: string;
+    loginAt: NativeDate;
 }) => {
- return `
+    return `
 <!DOCTYPE html>
 <html lang="en">
 
@@ -220,14 +220,14 @@ Login Time
 
 <td style="padding:12px;border:1px solid #ddd;">
 ${new Date(user.loginAt).getFullYear()}
-${new Date(user.loginAt).toLocaleString("en-US",{month:"long"})}
+${new Date(user.loginAt).toLocaleString("en-US", { month: "long" })}
 ${new Date(user.loginAt).getDate()}
 |
-${new Date(user.loginAt).toLocaleTimeString("en-US",{
-hour:"2-digit",
-minute:"2-digit",
-hour12:true
-})}
+${new Date(user.loginAt).toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+    })}
 </td>
 </tr>
 
@@ -291,4 +291,217 @@ All Rights Reserved.
 </html>
 `;
 
+};
+
+
+
+export const ContactEmailHtml = (value: {
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+}) => {
+    return `
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Contact Message</title>
+</head>
+
+<body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,Helvetica,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+<tr>
+<td align="center">
+
+<table width="600" cellpadding="0" cellspacing="0"
+style="background:#ffffff;border-radius:10px;overflow:hidden;">
+
+<!-- Header -->
+<tr>
+<td align="center"
+style="background:#000000;color:#ffffff;padding:30px;">
+
+<h1 style="margin:0;font-size:28px;">
+📩 New Contact Message
+</h1>
+
+</td>
+</tr>
+
+<!-- Body -->
+<tr>
+<td style="padding:40px;">
+
+<h2 style="margin-top:0;color:#000;">
+Hello Admin,
+</h2>
+
+<p style="font-size:16px;color:#555;line-height:1.8;">
+You have received a new message from the contact form on
+<strong>Nepali Store</strong>.
+</p>
+
+<!-- Contact Details -->
+<table width="100%" cellpadding="0" cellspacing="0"
+style="border-collapse:collapse;margin-top:25px;">
+
+<tr>
+
+<td style="
+padding:12px;
+border:1px solid #ddd;
+font-weight:bold;
+width:180px;
+">
+Name
+</td>
+
+<td style="
+padding:12px;
+border:1px solid #ddd;
+">
+${value.name}
+</td>
+
+</tr>
+
+<tr>
+
+<td style="
+padding:12px;
+border:1px solid #ddd;
+font-weight:bold;
+">
+Email
+</td>
+
+<td style="
+padding:12px;
+border:1px solid #ddd;
+">
+${value.email}
+</td>
+
+</tr>
+
+<tr>
+
+<td style="
+padding:12px;
+border:1px solid #ddd;
+font-weight:bold;
+">
+Subject
+</td>
+
+<td style="
+padding:12px;
+border:1px solid #ddd;
+">
+${value.subject}
+</td>
+
+</tr>
+
+<tr>
+
+<td style="
+padding:12px;
+border:1px solid #ddd;
+font-weight:bold;
+vertical-align:top;
+">
+Message
+</td>
+
+<td style="
+padding:12px;
+border:1px solid #ddd;
+line-height:1.6;
+">
+${value.message}
+</td>
+
+</tr>
+
+</table>
+
+<!-- Button -->
+<div style="text-align:center;margin-top:35px;">
+
+<a href="mailto:${value.email}"
+style="
+display:inline-block;
+background:#000000;
+color:#ffffff;
+text-decoration:none;
+padding:14px 35px;
+border-radius:6px;
+font-size:16px;
+font-weight:bold;
+">
+
+Reply to Customer
+
+</a>
+
+</div>
+
+<p style="
+margin-top:35px;
+color:#555;
+font-size:15px;
+line-height:1.7;
+">
+
+Please review the customer's message and respond as soon as possible.
+
+</p>
+
+<p style="margin-top:30px;color:#000;">
+
+Regards,<br>
+
+<strong>Nepali Store Team</strong>
+
+</p>
+
+</td>
+</tr>
+
+<!-- Footer -->
+
+<tr>
+
+<td align="center"
+style="
+background:#000000;
+color:#ffffff;
+padding:20px;
+font-size:13px;
+">
+
+© ${new Date().getFullYear()} Nepali Store<br>
+
+All Rights Reserved.
+
+</td>
+
+</tr>
+
+</table>
+
+</td>
+</tr>
+
+</table>
+
+</body>
+
+</html>
+`;
 };
