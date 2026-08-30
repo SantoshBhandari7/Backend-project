@@ -48,7 +48,7 @@ export const getall = catchAsync(
       filter.brand = brand;
     }
 
-    const products = await Product.find(filter)
+    const products = await Product.find(filter).populate("brand", "name").populate("category", "name")
       .limit(perPage)
       .skip(skip)
       .sort({

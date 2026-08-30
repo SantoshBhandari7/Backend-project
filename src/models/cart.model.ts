@@ -14,13 +14,14 @@ const cartSchema = new mongoose.Schema(
       {
         product: {
           type: mongoose.Schema.Types.ObjectId,
+          ref: "product",
           required: [true, "product id is required"],
         },
         quantity: {
           type: Number,
           required: [true, "Quantity is required"],
           default: 1,
-          min:[1, "qunatity must be 1 in cart"],
+          min: [1, "qunatity must be 1 in cart"],
         },
       },
     ],

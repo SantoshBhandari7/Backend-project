@@ -57,13 +57,17 @@ export const createWish = catchAsync(async (req: Request, res: Response, next: N
 
 export const removeWish = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.user._id;
+  const { productId } = req.params;
 
   const wishlist = await WishList.findOne({ user: userId });
 
   if (!wishlist) {
     throw new apiError("wishlist not found", 404);
   }
-  wishlist.products = [];
+
+  wishlist.products = wishlist.products.filter(
+    (product) => product.toString() !== productId
+  );
 
   await wishlist.save();
 

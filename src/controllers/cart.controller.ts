@@ -9,7 +9,19 @@ export const getById = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.user._id;
 
-    const carts = await Cart.findOne({ user: userId }).populate('product');
+    const carts = await Cart.findOne({ user: userId }).populate({
+      path: "items.product",
+      populate: [
+        {
+          path: "brand",
+          select: "name",
+        },
+        {
+          path: "category",
+          select: "name",
+        },
+      ],
+    })
     if (!carts) {
       throw new apiError("cart not found", 404);
     }
@@ -29,13 +41,14 @@ export const createCart = catchAsync(
 
     const product = await Product.findById(productId);
     if (!product) {
-      throw new apiError("product is bot found", 404);
+      throw new apiError("product not found", 404);
     }
 
     let cart = await Cart.findOne({ user: userId });
 
     if (!cart) {
       cart = new Cart({ user: userId, items: [] });
+      // throw new apiError('cart not found', 404);
     }
 
     const item = cart.items.find(
@@ -51,9 +64,7 @@ export const createCart = catchAsync(
         price: product.price,
       });
     }
-
     await cart.save();
-
     sendResponse(res, {
       message: "Products are added to cart",
       data: cart,
@@ -94,9 +105,10 @@ export const updateCart = catchAsync(
 
 export const removeCart = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { userId, prodcutId } = req.body;
+    const { prodcutId } = req.params;
+    const userId = req.user._id;
 
-    const cart = await Cart.findById({ user: userId });
+    const cart = await Cart.findOne({ user: userId });
 
     if (!cart) {
       throw new apiError("Cart is not found", 404);

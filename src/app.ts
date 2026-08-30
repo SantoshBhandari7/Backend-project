@@ -41,7 +41,7 @@ app.use("/api/v1/brands", brandsRoutes);
 app.use("/api/v1/products", ProductRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/wishlists", wishlistRoutes);
-app.use("/api/v1/carts", cartRoutes);
+app.use("/api/v1/cart", cartRoutes);
 
 
 //*  error routes
