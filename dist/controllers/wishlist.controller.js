@@ -49,11 +49,12 @@ exports.createWish = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) =
 });
 exports.removeWish = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     const userId = req.user._id;
+    const { productId } = req.params;
     const wishlist = await wishlist_model_1.default.findOne({ user: userId });
     if (!wishlist) {
         throw new apiError_utils_1.apiError("wishlist not found", 404);
     }
-    wishlist.products = [];
+    wishlist.products = wishlist.products.filter((product) => product.toString() !== productId);
     await wishlist.save();
     (0, sendResponse_utils_1.sendResponse)(res, {
         message: "Wishlist deleted successfully",

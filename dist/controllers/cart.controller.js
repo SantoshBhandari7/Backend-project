@@ -11,7 +11,19 @@ const sendResponse_utils_1 = require("../utils/sendResponse.utils");
 const product_model_1 = __importDefault(require("../models/product.model"));
 exports.getById = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     const userId = req.user._id;
-    const carts = await cart_model_1.default.findOne({ user: userId }).populate('product');
+    const carts = await cart_model_1.default.findOne({ user: userId }).populate({
+        path: "items.product",
+        populate: [
+            {
+                path: "brand",
+                select: "name",
+            },
+            {
+                path: "category",
+                select: "name",
+            },
+        ],
+    });
     if (!carts) {
         throw new apiError_utils_1.apiError("cart not found", 404);
     }
@@ -26,11 +38,12 @@ exports.createCart = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) =
     const userId = req.user._id;
     const product = await product_model_1.default.findById(productId);
     if (!product) {
-        throw new apiError_utils_1.apiError("product is bot found", 404);
+        throw new apiError_utils_1.apiError("product not found", 404);
     }
     let cart = await cart_model_1.default.findOne({ user: userId });
     if (!cart) {
         cart = new cart_model_1.default({ user: userId, items: [] });
+        // throw new apiError('cart not found', 404);
     }
     const item = cart.items.find((item) => item.product.toString() === productId);
     if (item) {
@@ -70,8 +83,9 @@ exports.updateCart = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) =
     });
 });
 exports.removeCart = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
-    const { userId, prodcutId } = req.body;
-    const cart = await cart_model_1.default.findById({ user: userId });
+    const { prodcutId } = req.params;
+    const userId = req.user._id;
+    const cart = await cart_model_1.default.findOne({ user: userId });
     if (!cart) {
         throw new apiError_utils_1.apiError("Cart is not found", 404);
     }

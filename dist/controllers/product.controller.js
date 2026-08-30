@@ -39,7 +39,7 @@ exports.getall = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     if (brand) {
         filter.brand = brand;
     }
-    const products = await product_model_1.default.find(filter)
+    const products = await product_model_1.default.find(filter).populate("brand", "name").populate("category", "name")
         .limit(perPage)
         .skip(skip)
         .sort({

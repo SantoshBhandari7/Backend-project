@@ -5,6 +5,7 @@ import Contact from "../models/contact.model";
 import { sendResponse } from "../utils/sendResponse.utils";
 import { sendMail } from "../utils/sendEmailService.utils";
 import { ContactEmailHtml } from "../utils/emailTemplate.utils";
+import ENV_CONFIG from "../config/env.config";
 
 
 export const createContact = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -18,7 +19,7 @@ export const createContact = catchAsync(async (req: Request, res: Response, next
     await value.save();
 
     sendMail({
-        to: value.email,
+        to: ENV_CONFIG.smtp_mail_from,
         subject: "Message get from user",
         html: ContactEmailHtml({
             name: value.name,
