@@ -13,5 +13,4 @@ router.post("/", authenticate([Role.USER]), createCart);
 router.put("/:productId", authenticate([Role.USER]), updateCart);
 
 router.delete("/:productId", authenticate([Role.USER]), removeCart);
-
 export default router;
