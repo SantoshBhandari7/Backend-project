@@ -17,7 +17,7 @@ const contactSchema = new mongoose.Schema({
     },
     message: {
         type: String,
-        required,
+        required: true,
     }
 }, { timestamps: true });
 

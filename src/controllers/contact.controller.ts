@@ -11,11 +11,11 @@ import ENV_CONFIG from "../config/env.config";
 export const createContact = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, message, subject } = req.body
 
-    if (!name || !email || !message) {
+    if (!name || !email || !message || !subject) {
         throw new apiError("Required Fileds are missing", 404);
     }
 
-    const value = new Contact({ name, email, message });
+    const value = new Contact({ name, email, message, subject });
     await value.save();
 
     sendMail({

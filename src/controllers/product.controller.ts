@@ -71,7 +71,7 @@ export const getall = catchAsync(
 export const getbyId = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    const product = await Product.findOne({ _id: id });
+    const product = await Product.findOne({ _id: id }).populate("brand", "name").populate("category", "name");
     if (!product) {
       throw new apiError("product is not found", 404);
     }

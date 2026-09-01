@@ -43,7 +43,7 @@ app.use("/api/v1/products", ProductRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/wishlists", wishlistRoutes);
 app.use("/api/v1/cart", cartRoutes);
-app.use("/api/v1/contact", contactRoutes);
+app.use("/api/v1/contacts", contactRoutes);
 
 
 //*  error routes
