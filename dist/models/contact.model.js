@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const mini_1 = require("zod/mini");
 const contactSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
@@ -20,7 +19,7 @@ const contactSchema = new mongoose_1.default.Schema({
     },
     message: {
         type: String,
-        required: mini_1.required,
+        required: true,
     }
 }, { timestamps: true });
 const Contact = mongoose_1.default.model("contact", contactSchema);

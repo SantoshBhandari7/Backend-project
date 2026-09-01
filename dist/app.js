@@ -41,7 +41,7 @@ app.use("/api/v1/products", product_routes_1.default);
 app.use("/api/v1/categories", category_routes_1.default);
 app.use("/api/v1/wishlists", wishlist_routes_1.default);
 app.use("/api/v1/cart", cart_routes_1.default);
-app.use("/api/v1/contact", contact_routes_1.default);
+app.use("/api/v1/contacts", contact_routes_1.default);
 //*  error routes
 app.use((req, res, next) => {
     const error = new apiError_utils_1.apiError(`Cannot get ${req.method} on ${req.path}`, 404);

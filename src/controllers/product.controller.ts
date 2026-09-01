@@ -67,7 +67,6 @@ export const getall = catchAsync(
     });
   },
 );
-
 export const getbyId = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;

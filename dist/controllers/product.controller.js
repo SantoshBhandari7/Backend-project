@@ -58,7 +58,7 @@ exports.getall = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
 });
 exports.getbyId = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     const { id } = req.params;
-    const product = await product_model_1.default.findOne({ _id: id });
+    const product = await product_model_1.default.findOne({ _id: id }).populate("brand", "name").populate("category", "name");
     if (!product) {
         throw new apiError_utils_1.apiError("product is not found", 404);
     }

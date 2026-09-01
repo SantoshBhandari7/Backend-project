@@ -13,10 +13,10 @@ const emailTemplate_utils_1 = require("../utils/emailTemplate.utils");
 const env_config_1 = __importDefault(require("../config/env.config"));
 exports.createContact = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     const { name, email, message, subject } = req.body;
-    if (!name || !email || !message) {
+    if (!name || !email || !message || !subject) {
         throw new apiError_utils_1.apiError("Required Fileds are missing", 404);
     }
-    const value = new contact_model_1.default({ name, email, message });
+    const value = new contact_model_1.default({ name, email, message, subject });
     await value.save();
     (0, sendEmailService_utils_1.sendMail)({
         to: env_config_1.default.smtp_mail_from,
