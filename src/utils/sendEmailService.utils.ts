@@ -2,7 +2,7 @@ import { MailOptions } from "nodemailer/lib/json-transport";
 import ENV_CONFIG from "../config/env.config";
 import transpoter from "../config/nodemailer.config";
 
-interface IMailOption {
+interface IMailOptions {
   to: string;
   subject: string;
   html: string;
@@ -11,26 +11,26 @@ interface IMailOption {
   attachments?: any[];
 }
 
-export const sendMail = async (mailOption: IMailOption) => {
-  const { to, html, subject, bcc, cc,attachments } = mailOption;
+export const sendMail = async (mailOptions: IMailOptions) => {
+  const { to, html, subject, bcc, cc, attachments } = mailOptions;
   try {
-    const option: MailOptions = {
+    const options: MailOptions = {
       to,
       from: ENV_CONFIG.smtp_mail_from,
       html,
       subject,
     };
     if (bcc) {
-      option["bcc"] = bcc;
+      options["bcc"] = bcc;
     }
     if (cc) {
-      option["cc"] = cc;
+      options["cc"] = cc;
     }
     if (attachments) {
-      option["attachments"] =attachments;
+      options["attachments"] = attachments;
     }
 
-    transpoter.sendMail(option);
+    transpoter.sendMail(options);
   } catch (error) {
     console.log(error);
   }

@@ -13,16 +13,15 @@ const transpoter = nodemailer.createTransport({
   host: ENV_CONFIG.smtp_host,
   service: ENV_CONFIG.smtp_service,
   port: ENV_CONFIG.smtp_port,
-  secure: ENV_CONFIG.smtp_port === 587,
+  secure: ENV_CONFIG.smtp_port === 465,
   auth: {
     user: ENV_CONFIG.smtp_user,
     pass: ENV_CONFIG.smtp_pass,
   },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
-
 })
+
+
+
 export const verifySMTPconnection = async () => {
   try {
     await transpoter.verify();

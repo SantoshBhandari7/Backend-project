@@ -61,19 +61,29 @@ exports.getbyId = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
 exports.create = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     const { name, description } = req.body;
     const file = req.file;
-    const brand = await brand_models_1.default.findOne({ name });
-    if (!brand) {
-        throw new apiError_utils_1.apiError("Brand is not found", 400);
+    console.log("BODY:", req.body);
+    console.log("FILE:", file);
+    if (!name)
+        throw new apiError_utils_1.apiError("name is required", 400);
+    const brand = await brand_models_1.default.findOne({ name: name });
+    if (brand) {
+        throw new apiError_utils_1.apiError(`brand:${name} already exists`, 409);
     }
+    //* creating brand instance
     const newBrand = new brand_models_1.default({ name, description });
-    //* upload logo
     if (file) {
+        //* upload logo
         const { path, public_id } = await (0, cloudinary_utils_1.upload)(file, folder);
+        newBrand.logo = {
+            path,
+            public_id,
+        };
     }
-    newBrand.save();
+    //* save brand
+    await newBrand.save();
     (0, sendResponse_utils_1.sendResponse)(res, {
         message: "brand created successfully",
-        data: brand,
+        data: newBrand,
         statusCode: 201,
     });
 });

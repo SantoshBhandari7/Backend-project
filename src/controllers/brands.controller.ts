@@ -75,24 +75,36 @@ export const create = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, description } = req.body;
     const file = req.file;
+    console.log("BODY:", req.body);
+    console.log("FILE:", file);
+    if (!name) throw new apiError("name is required", 400);
 
-    const brand = await Brand.findOne({ name });
-    if (!brand) {
-      throw new apiError("Brand is not found", 400);
+
+    const brand = await Brand.findOne({ name: name });
+
+    if (brand) {
+      throw new apiError(`brand:${name} already exists`, 409);
     }
+
+    //* creating brand instance
     const newBrand = new Brand({ name, description });
 
-    //* upload logo
-
     if (file) {
+      //* upload logo
       const { path, public_id } = await upload(file, folder);
+
+      newBrand.logo = {
+        path,
+        public_id,
+      };
     }
 
-    newBrand.save();
+    //* save brand
+    await newBrand.save();
 
     sendResponse(res, {
       message: "brand created successfully",
-      data: brand,
+      data: newBrand,
       statusCode: 201,
     });
   },

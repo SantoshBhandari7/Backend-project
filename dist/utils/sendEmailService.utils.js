@@ -6,25 +6,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendMail = void 0;
 const env_config_1 = __importDefault(require("../config/env.config"));
 const nodemailer_config_1 = __importDefault(require("../config/nodemailer.config"));
-const sendMail = async (mailOption) => {
-    const { to, html, subject, bcc, cc, attachments } = mailOption;
+const sendMail = async (mailOptions) => {
+    const { to, html, subject, bcc, cc, attachments } = mailOptions;
     try {
-        const option = {
+        const options = {
             to,
             from: env_config_1.default.smtp_mail_from,
             html,
             subject,
         };
         if (bcc) {
-            option["bcc"] = bcc;
+            options["bcc"] = bcc;
         }
         if (cc) {
-            option["cc"] = cc;
+            options["cc"] = cc;
         }
         if (attachments) {
-            option["attachments"] = attachments;
+            options["attachments"] = attachments;
         }
-        nodemailer_config_1.default.sendMail(option);
+        nodemailer_config_1.default.sendMail(options);
     }
     catch (error) {
         console.log(error);
