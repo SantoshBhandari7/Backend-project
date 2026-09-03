@@ -87,15 +87,16 @@ export const create = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, price, stock, brand, category, description, new_arrival } =
       req.body;
-    const { cover_image, images } = req.files as {
+    const files = req.files as {
       cover_image: Express.Multer.File[];
       images: Express.Multer.File[];
     };
+    const cover_image = files?.cover_image;
+    const images = files?.images;
 
-    if (!cover_image[0]) {
+    if (!cover_image || !cover_image[0]) {
       throw new apiError("cover_image is not found", 400);
     }
-
     const product = await Product.findOne({ name });
     if (product) {
       throw new apiError(`product ${name} is already exits`, 400);
@@ -126,7 +127,7 @@ export const create = catchAsync(
     await newProduct.save();
     sendResponse(res, {
       message: "product created successfully",
-      data: product,
+      data: newProduct,
       statusCode: 201,
     });
   },
