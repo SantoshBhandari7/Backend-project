@@ -17,7 +17,7 @@ export const getall = catchAsync(
     sendResponse(res, {
       message: "record Fetched success fully",
       statusCode: 200,
-      data: User,
+      data: users,
     });
   },
 );

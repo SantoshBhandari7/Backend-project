@@ -11,6 +11,7 @@ import categoryRoutes from "./routes/category.routes";
 import cartRoutes from "./routes/cart.routes";
 import wishlistRoutes from "./routes/wishlist.routes";
 import contactRoutes from "./routes/contact.routes";
+import userRoutes from "./routes/users.routes"
 //* app instanceqdc 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use("/api/v1/products", ProductRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/wishlists", wishlistRoutes);
 app.use("/api/v1/cart", cartRoutes);
+app.use("/api/v1/users", userRoutes)
 app.use("/api/v1/contacts", contactRoutes);
 
 
