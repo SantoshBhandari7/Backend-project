@@ -10,7 +10,7 @@ import { authenticate } from "../middlewares/auth.middleware";
 import { Role } from "../@types/enum.types";
 import { uploader } from "../middlewares/multer.middleware";
 import { validate } from "../middlewares/validator.middleware";
-import { createCategorySchema } from "../validators/catagory.validator";
+import { createCategorySchema, updatecategorySchema } from "../validators/catagory.validator";
 
 const router = express.Router();
 const upload = uploader();
@@ -32,7 +32,7 @@ router.post(
 //* update
 router.put(
   "/:id",
-  authenticate([Role.ADMIN, Role.SUPER_ADMIN]),
+  authenticate([Role.ADMIN, Role.SUPER_ADMIN]),validate(updatecategorySchema),
   upload.single("image"),
 
   update,

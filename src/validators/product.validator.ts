@@ -6,9 +6,7 @@ export const createProductSchema = z.object({
     name: z
       .string({
         error: (issue) =>
-          issue.input === null
-            ? "name is required"
-            : "name must be string",
+          issue.input === null ? "name is required" : "name must be string",
       })
       .min(3, "name must be 3 characters long")
       .max(100, "name should not exceed 100 characters")
@@ -29,9 +27,7 @@ export const createProductSchema = z.object({
     brand: z
       .string({
         error: (issue) =>
-          issue.input === null
-            ? "Brand is required"
-            : "brand must be string",
+          issue.input === null ? "Brand is required" : "brand must be string",
       })
       .min(1, "brand is required")
       .trim(),
@@ -66,28 +62,21 @@ export const updateproductSchema = z.object({
       .min(3, "name must be 3 character along")
       .max(100, "name shouldnot be exceds than 100")
       .trim(),
-    price: z.number({
-      error: "price must be number",
-    }),
+    price: z.coerce.number().positive("price must be greater than 0"),
 
-    stock: z.number({
-      error: "stock must be number",
-    }),
+    stock: z.coerce.number().min(0, "stock cannot be nagative").optional(),
     brand: z
-      .string({
-        error: "brand must be string",
-      })
-      .min(3, "brand must be 3 character along")
-      .max(20, "brand shouldnot excceds tahn 20 characters")
-      .trim(),
+      .string()
+      .refine((id) => mongoose.Types.ObjectId.isValid(id), "invalid brand id")
+      .optional(),
 
     category: z
-      .string({
-        error: "category must be string",
-      })
-      .min(3, "brand must be 3 character along")
-      .max(20, "brand shouldnot excceds tahn 20 characters")
-      .trim(),
+      .string()
+      .refine(
+        (id) => mongoose.Types.ObjectId.isValid(id),
+        "invalid category id",
+      )
+      .optional(),
   }),
 });
 

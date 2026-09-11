@@ -1,6 +1,5 @@
 import express from "express";
 import { getProfile, login, logout, register } from "../controllers/auth.controller";
-import multer from "multer";
 import { uploader } from "../middlewares/multer.middleware";
 import { validate } from "../middlewares/validator.middleware";
 import { loginSchema, registerUserSchema } from "../validators/auth.validator";
