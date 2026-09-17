@@ -3,11 +3,10 @@ import ENV_CONFIG from "./env.config";
 
 // console.log(ENV_CONFIG.smtp_host);
 
-console.log(ENV_CONFIG.smtp_port);
+// console.log(ENV_CONFIG.smtp_port);
 // console.log(ENV_CONFIG.smtp_service);
 // console.log(ENV_CONFIG.smtp_user);
 // console.log(ENV_CONFIG.smtp_pass);
-
 
 const transpoter = nodemailer.createTransport({
   host: ENV_CONFIG.smtp_host,
@@ -18,9 +17,7 @@ const transpoter = nodemailer.createTransport({
     user: ENV_CONFIG.smtp_user,
     pass: ENV_CONFIG.smtp_pass,
   },
-})
-
-
+});
 
 export const verifySMTPconnection = async () => {
   try {
@@ -29,5 +26,5 @@ export const verifySMTPconnection = async () => {
   } catch (err) {
     console.error("Verification failed", err);
   }
-}
+};
 export default transpoter;

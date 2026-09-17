@@ -2,13 +2,12 @@ import { NextFunction, Request, Response } from "express";
 import { Role } from "../@types/enum.types";
 import { apiError } from "../utils/apiError.utils";
 import { verifyJwtToken } from "../utils/jwt.utils";
-import { IJwtDecodedData } from "../@types/global.types";
+// import { IJwtDecodedData } from "../@types/global.types";
 
- console.log("Authenticate middleware called");
+console.log("Authenticate middleware called");
 export const authenticate = (roles?: Role[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-     
       //* get access token from cookie
       const access_token = req.cookies["access_token"];
 
@@ -37,7 +36,7 @@ export const authenticate = (roles?: Role[]) => {
         _id: decoded_data._id,
         email: decoded_data.email,
         full_name: decoded_data.full_name,
-        role:decoded_data.role,
+        role: decoded_data.role,
       };
 
       next();
