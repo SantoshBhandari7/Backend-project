@@ -71,8 +71,10 @@ exports.getbyId = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
 });
 exports.create = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     const { name, price, stock, brand, category, description, new_arrival } = req.body;
-    const { cover_image, images } = req.files;
-    if (!cover_image[0]) {
+    const files = req.files;
+    const cover_image = files?.cover_image;
+    const images = files?.images;
+    if (!cover_image || !cover_image[0]) {
         throw new apiError_utils_1.apiError("cover_image is not found", 400);
     }
     const product = await product_model_1.default.findOne({ name });
@@ -104,7 +106,7 @@ exports.create = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     await newProduct.save();
     (0, sendResponse_utils_1.sendResponse)(res, {
         message: "product created successfully",
-        data: product,
+        data: newProduct,
         statusCode: 201,
     });
 });

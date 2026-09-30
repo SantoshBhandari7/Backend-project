@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authenticate = void 0;
 const apiError_utils_1 = require("../utils/apiError.utils");
 const jwt_utils_1 = require("../utils/jwt.utils");
+// import { IJwtDecodedData } from "../@types/global.types";
 console.log("Authenticate middleware called");
 const authenticate = (roles) => {
     return async (req, res, next) => {

@@ -7,7 +7,7 @@ exports.verifySMTPconnection = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const env_config_1 = __importDefault(require("./env.config"));
 // console.log(ENV_CONFIG.smtp_host);
-console.log(env_config_1.default.smtp_port);
+// console.log(ENV_CONFIG.smtp_port);
 // console.log(ENV_CONFIG.smtp_service);
 // console.log(ENV_CONFIG.smtp_user);
 // console.log(ENV_CONFIG.smtp_pass);

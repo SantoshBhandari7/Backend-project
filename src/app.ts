@@ -11,18 +11,20 @@ import categoryRoutes from "./routes/category.routes";
 import cartRoutes from "./routes/cart.routes";
 import wishlistRoutes from "./routes/wishlist.routes";
 import contactRoutes from "./routes/contact.routes";
-import userRoutes from "./routes/users.routes"
-//* app instanceqdc 
+import userRoutes from "./routes/users.routes";
+import ENV_CONFIG from "./config/env.config";
+//* app instanceqdc
 const app = express();
 
-const allowedOrigins = process.env.ORIGINS?.split(',') ?? [];
+const allowedOrigins = ENV_CONFIG.allowedOrigins.split(",") ?? [];
 
 //* using middleware
 app.use(
   cors({
     origin: allowedOrigins,
-    credentials: true
-  }))
+    credentials: true,
+  }),
+);
 
 //* using middleware
 app.use(cookieParser());
@@ -44,13 +46,15 @@ app.use("/api/v1/products", ProductRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/wishlists", wishlistRoutes);
 app.use("/api/v1/cart", cartRoutes);
-app.use("/api/v1/users", userRoutes)
+app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/contacts", contactRoutes);
-
 
 //*  error routes
 app.use((req, res, next) => {
-  const error: any = new apiError(`Cannot get ${req.method} on ${req.path}`, 404);
+  const error: any = new apiError(
+    `Cannot get ${req.method} on ${req.path}`,
+    404,
+  );
   error.statusCode = 404;
   error.status = "fails";
   next(error);

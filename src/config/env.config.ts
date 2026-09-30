@@ -5,7 +5,7 @@ const ENV_CONFIG = {
   port: process.env.port!!,
   db_uri: process.env.DB_URI!!,
   node_env: process.env.NODE_ENV,
-   allowedOrigins:process.env.ORIGINS,
+  allowedOrigins: process.env.ORIGINS!!,
 
   //!cloudinary
 
@@ -16,7 +16,6 @@ const ENV_CONFIG = {
   //!jwt
   jwt_secrete: process.env.JWT_SECRETE!!,
   jwt_expires_in: process.env.JWT_EXPIRES_IN!!,
-
 
   //!cookie
   cookie_expiry: process.env.COOKIE_EXPIRY,

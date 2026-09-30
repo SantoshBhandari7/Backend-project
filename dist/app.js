@@ -15,13 +15,15 @@ const category_routes_1 = __importDefault(require("./routes/category.routes"));
 const cart_routes_1 = __importDefault(require("./routes/cart.routes"));
 const wishlist_routes_1 = __importDefault(require("./routes/wishlist.routes"));
 const contact_routes_1 = __importDefault(require("./routes/contact.routes"));
-//* app instanceqdc 
+const users_routes_1 = __importDefault(require("./routes/users.routes"));
+const env_config_1 = __importDefault(require("./config/env.config"));
+//* app instanceqdc
 const app = (0, express_1.default)();
-const allowedOrigins = process.env.ORIGINS?.split(',') ?? [];
+const allowedOrigins = env_config_1.default.allowedOrigins.split(",") ?? [];
 //* using middleware
 app.use((0, cors_1.default)({
     origin: allowedOrigins,
-    credentials: true
+    credentials: true,
 }));
 //* using middleware
 app.use((0, cookie_parser_1.default)());
@@ -41,6 +43,7 @@ app.use("/api/v1/products", product_routes_1.default);
 app.use("/api/v1/categories", category_routes_1.default);
 app.use("/api/v1/wishlists", wishlist_routes_1.default);
 app.use("/api/v1/cart", cart_routes_1.default);
+app.use("/api/v1/users", users_routes_1.default);
 app.use("/api/v1/contacts", contact_routes_1.default);
 //*  error routes
 app.use((req, res, next) => {

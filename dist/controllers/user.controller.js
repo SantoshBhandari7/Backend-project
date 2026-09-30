@@ -14,7 +14,7 @@ exports.getall = (0, catchAsync_utils_1.catchAsync)(async (req, res, next) => {
     (0, sendResponse_utils_1.sendResponse)(res, {
         message: "record Fetched success fully",
         statusCode: 200,
-        data: user_models_1.default,
+        data: users,
     });
 });
 //* getbyId

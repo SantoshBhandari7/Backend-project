@@ -21,7 +21,7 @@ router.get("/:id", catagories_controller_1.getById);
 router.post("/", (0, auth_middleware_1.authenticate)([enum_types_1.Role.ADMIN, enum_types_1.Role.SUPER_ADMIN]), (0, validator_middleware_1.validate)(catagory_validator_1.createCategorySchema), upload.single("image"), catagories_controller_1.create);
 //  
 //* update
-router.put("/:id", (0, auth_middleware_1.authenticate)([enum_types_1.Role.ADMIN, enum_types_1.Role.SUPER_ADMIN]), upload.single("image"), catagories_controller_1.update);
+router.put("/:id", (0, auth_middleware_1.authenticate)([enum_types_1.Role.ADMIN, enum_types_1.Role.SUPER_ADMIN]), (0, validator_middleware_1.validate)(catagory_validator_1.updatecategorySchema), upload.single("image"), catagories_controller_1.update);
 //  
 //* delete
 router.delete("/:id", (0, auth_middleware_1.authenticate)([enum_types_1.Role.ADMIN, enum_types_1.Role.SUPER_ADMIN]), catagories_controller_1.remove);
