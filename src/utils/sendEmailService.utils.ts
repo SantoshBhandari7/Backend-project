@@ -1,4 +1,4 @@
-import { MailOptions } from "nodemailer/lib/json-transport";
+import { MailOptions } from "nodemailer/lib/smtp-pool";
 import ENV_CONFIG from "../config/env.config";
 import transpoter from "../config/nodemailer.config";
 
