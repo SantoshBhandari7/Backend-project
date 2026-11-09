@@ -129,8 +129,6 @@ export const login = catchAsync(
       full_name: user.full_name,
     });
 
-
-
     sendMail({
       to: user.email,
       subject: "login successfully ",
@@ -154,7 +152,7 @@ export const login = catchAsync(
         data: user,
         access_token,
       },
-      message: "Login Successfull",
+      message: "Login Successful",
       statusCode: 201,
     });
   },
@@ -163,7 +161,6 @@ export const login = catchAsync(
 //*get profile
 
 export const getProfile = catchAsync(async (req: Request, res: Response) => {
-
   const id = req.user._id;
 
   const user = await User.findOne({ _id: id });
@@ -177,8 +174,8 @@ export const getProfile = catchAsync(async (req: Request, res: Response) => {
     message: "profile fetched",
     data: user,
     statusCode: 200,
-  })
-})
+  });
+});
 //  console.log("JWT Secret:", ENV_CONFIG.jwt_secrete);
 
 //* logout
@@ -189,14 +186,13 @@ export const logout = catchAsync(async (req, res) => {
     maxAge: Date.now(),
     sameSite: ENV_CONFIG.node_env === "development" ? "lax" : "none",
     secure: ENV_CONFIG.node_env === "development" ? false : true,
-  })
+  });
   sendResponse(res, {
-    message: "logout successfull",
+    message: "logout successful",
     data: null,
     statusCode: 200,
-  })
-
-})
+  });
+});
 
 //*change password
 
